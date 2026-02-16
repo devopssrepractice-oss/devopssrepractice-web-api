@@ -1,0 +1,42 @@
+# Stage 1: Dependencies
+FROM node:24-alpine AS deps
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+# Stage 2: Build
+FROM node:24-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+
+# Build Next.js app with environment variables
+ENV NEXT_PUBLIC_API_URL=http://localhost:5000
+RUN npm run build
+
+# Stage 3: Production
+FROM node:24-alpine
+WORKDIR /app
+
+# Create non-root user
+RUN addgroup -g 1001 nodejs && adduser -S nodejs -u 1001
+
+# Copy deployment dependencies
+COPY --from=deps /app/node_modules ./node_modules
+
+# Copy built Next.js app
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/package*.json ./
+COPY .env.local* ./
+
+# Set user
+USER nodejs
+
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"
+
+CMD ["npm", "start"]
