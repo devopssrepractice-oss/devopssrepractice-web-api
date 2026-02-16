@@ -1,6 +1,7 @@
-# DevOps SRE Practice - Landing Page MVP
+# DevOps SRE Practice
 
-Modern landing page for DevOps SRE consulting and training services. Built with Next.js, Express, TypeScript, Framer Motion, Tailwind CSS, and Docker.
+Modern landing page for DevOps SRE consulting & training services.  
+**Stack:** Next.js 14 · Express · TypeScript · Tailwind CSS · Framer Motion · PostgreSQL · Docker · Kubernetes
 
 ## Project Structure
 
@@ -8,236 +9,174 @@ Modern landing page for DevOps SRE consulting and training services. Built with 
 .
 ├── api/                    # Express.js backend API
 │   ├── src/
-│   │   ├── index.ts       # Main server entry
-│   │   ├── routes/        # API routes
-│   │   ├── middleware/    # Express middleware
-│   │   └── services/      # Business logic
-│   ├── package.json
-│   ├── tsconfig.json
-│   └── .env              # Environment variables
+│   │   ├── index.ts       # Server entry — runs migrations, registers routes
+│   │   ├── routes/        # blog, news, contact, auth, webhooks
+│   │   ├── middleware/    # errorHandler, auth (JWT)
+│   │   ├── services/      # database, authService, contentfulService, emailService
+│   │   └── types/         # Shared TypeScript interfaces
+│   └── .env.example       # All available env vars
 │
-├── web/                    # Next.js frontend
+├── web/                    # Next.js frontend (standalone output)
 │   ├── src/
-│   │   ├── app/          # Next.js app router
-│   │   ├── components/   # React components
-│   │   └── lib/          # Utilities
-│   ├── public/           # Static assets
-│   ├── package.json
-│   └── .env.local        # Environment variables
+│   │   ├── app/           # App Router pages (/, /blog, /news, /about, /login, /register)
+│   │   ├── components/    # Header, Footer, sections, motion, graphics
+│   │   └── lib/           # api.ts — typed fetch utilities
+│   └── .env.example
 │
-├── Dockerfile.api        # API container definition
-├── Dockerfile.web        # Web container definition
-├── docker-compose.yml    # Docker Compose configuration
-└── README.md             # This file
+├── k8s/                    # Kubernetes manifests
+│   ├── namespace.yaml
+│   ├── configmap.yaml
+│   ├── secrets.yaml
+│   ├── postgres.yaml       # PVC + Deployment + Service
+│   ├── api.yaml            # Deployment + Service + HPA
+│   ├── web.yaml            # Deployment + Service + HPA
+│   ├── ingress.yaml        # Nginx Ingress with TLS
+│   └── deploy.sh           # One-command deploy script
+│
+├── .github/workflows/ci.yml  # CI/CD — lint, build, Docker push, staging deploy
+├── Dockerfile.api
+├── Dockerfile.web
+└── docker-compose.yml      # Local multi-service stack (api + web + postgres)
 ```
 
 ## Prerequisites
 
-- Node.js 24+ & npm 11+
-- Docker & Docker Compose (optional, for containerized deployment)
+- Node.js 22+ & npm
+- Docker & Docker Compose (for containerised deployment)
+- PostgreSQL 16+ (or use Docker Compose)
 
-## Local Development Setup
-
-### 1. Install Dependencies
-
-```bash
-# Backend
-cd api
-npm install
-cd ..
-
-# Frontend
-cd web
-npm install
-cd ..
-```
-
-### 2. Configure Environment Variables
-
-**Backend** (`api/.env`):
-```
-NODE_ENV=development
-PORT=5000
-FRONTEND_URL=http://localhost:3000
-```
-
-**Frontend** (`web/.env.local`):
-```
-NEXT_PUBLIC_API_URL=http://localhost:5000
-```
-
-### 3. Run Development Servers
-
-**In Terminal 1 - Backend:**
-```bash
-cd api
-npm run dev
-# Server runs on http://localhost:5000
-```
-
-**In Terminal 2 - Frontend:**
-```bash
-cd web
-npm run dev
-# App runs on http://localhost:3000
-```
-
-## Docker Deployment
-
-### Build and Run with Docker Compose
+## Quick Start
 
 ```bash
-# Build images
-docker-compose build
+# 1. Clone & install
+cd api && npm install && cd ../web && npm install && cd ..
 
-# Start services
-docker-compose up -d
+# 2. Copy env files
+cp api/.env.example api/.env
+cp web/.env.example web/.env.local
 
-# View logs
-docker-compose logs -f
+# 3. Start PostgreSQL (Docker one-liner)
+docker run -d --name pg -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=devopssrepractice -p 5432:5432 postgres:16-alpine
 
-# Stop services
-docker-compose down
+# 4. Run servers
+cd api && npm run dev &
+cd web && npm run dev &
 ```
 
-Services will be available at:
 - Frontend: http://localhost:3000
 - API: http://localhost:5000
 
+## Docker Compose
+
+```bash
+docker-compose build
+docker-compose up -d          # starts postgres + api + web
+docker-compose logs -f
+docker-compose down -v        # tear down including volumes
+```
+
 ## API Endpoints
 
-### Health Check
-- `GET /health` - Server health status
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/health` | — | Health check (includes DB status) |
+| GET | `/api/blog` | — | List blog posts |
+| GET | `/api/blog/:slug` | — | Single blog post with content |
+| GET | `/api/news` | — | List news items |
+| POST | `/api/contact` | — | Submit contact form |
+| POST | `/api/auth/register` | — | Create account |
+| POST | `/api/auth/login` | — | Sign in → JWT token |
+| GET | `/api/auth/me` | Bearer | Current user profile |
+| POST | `/api/auth/logout` | Bearer | Invalidate session |
+| POST | `/api/webhooks/contentful` | Secret | Contentful publish webhook |
 
-### Contact Form
-- `POST /api/contact` - Submit contact form
-  ```json
-  {
-    "name": "string",
-    "email": "string",
-    "message": "string"
-  }
-  ```
+## Authentication
 
-### Blog (Mock - Contentful integration coming)
-- `GET /api/blog` - Get all blog posts
-- `GET /api/blog/:slug` - Get single blog post
+JWT-based auth with PostgreSQL-backed sessions.
 
-## Frontend Components
-
-### Pages
-- `/` - Landing page (Hero, Features, CTA)
-- `/blog` - Blog listing
-- `/news` - News feed
-- `/about` - About page
-
-### Key Components
-- **HeroSection** - Animated hero with gradient background
-- **FeaturesGrid** - Service features with hover animations
-- **CTASection** - Contact form with validation
-- **Header/Footer** - Navigation and footer
-
-### Animations (Framer Motion)
-- Fade-in transitions
-- Scroll-triggered animations
-- Hover effects on cards
-- Button scaling interactions
-- Parallax effects
-
-## Build for Production
-
-### Backend
 ```bash
-cd api
-npm run build
-npm start
+# Register
+curl -X POST http://localhost:5000/api/auth/register \
+  -H 'Content-Type: application/json' \
+  -d '{"name":"Jane","email":"jane@example.com","password":"Secret1234"}'
+
+# Login
+curl -X POST http://localhost:5000/api/auth/login \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"jane@example.com","password":"Secret1234"}'
+
+# Authenticated request
+curl http://localhost:5000/api/auth/me -H 'Authorization: Bearer <token>'
 ```
 
-### Frontend
+## Contentful CMS (Optional)
+
+Blog posts and news items can be sourced from Contentful. If env vars are not set, the API serves built-in mock data.
+
+1. Create a Contentful space with content types `blogPost` and `newsItem`
+2. Set `CONTENTFUL_SPACE_ID` and `CONTENTFUL_ACCESS_TOKEN` in `api/.env`
+3. Optionally configure a webhook pointing to `/api/webhooks/contentful`
+
+## Kubernetes Deployment
+
 ```bash
-cd web
-npm run build
-npm start
+# Edit k8s/secrets.yaml with real values first!
+cd k8s
+./deploy.sh                   # applies all manifests in order
 ```
 
-## Configuration & Customization
+Includes:
+- Namespace isolation
+- PostgreSQL with PVC
+- API & Web Deployments with HPA (autoscaling)
+- Nginx Ingress with TLS (cert-manager)
+- Health/readiness probes on all services
 
-### Tailwind CSS
-Edit `web/tailwind.config.ts` to customize:
-- Colors (primary, secondary, accent)
-- Typography
-- Spacing
+## CI/CD Pipeline
 
-### Features
-Edit `web/src/components/sections/FeaturesGrid.tsx` to update:
-- Service cards
-- Feature descriptions
-- Icons
+GitHub Actions workflow (`.github/workflows/ci.yml`):
 
-### Contact Form
-Edit `web/src/components/sections/CTASection.tsx` to modify:
-- Form fields
-- Validation
-- Success/error messages
+1. **Lint & Build** — `next build` + `tsc --noEmit`
+2. **Docker Build & Push** — builds both images, pushes to GHCR on `main`
+3. **Deploy to Staging** — rolling update via `kubectl set image` (requires `KUBE_CONFIG` secret)
 
-## Next Steps (Phase 2+)
+## Frontend Pages
 
-- [ ] Integrate Contentful CMS for blog/news content
-- [ ] Add user authentication for member content
-- [ ] Set up PostgreSQL database
-- [ ] Create Kubernetes manifests
-- [ ] Implement CI/CD pipeline
-- [ ] Add analytics tracking
-- [ ] SEO optimization
+| Route | Description |
+|-------|-------------|
+| `/` | Landing (Hero, Features, Process, CTA) |
+| `/blog` | Blog listing — fetches from API with fallback |
+| `/blog/[slug]` | Individual post with full content |
+| `/news` | News feed |
+| `/about` | About page with contact form |
+| `/login` | Sign-in form |
+| `/register` | Registration form |
 
-## Email Configuration (Optional)
+## Environment Variables
 
-To enable contact form emails:
+See `api/.env.example` and `web/.env.example` for all options.
 
-1. Generate Gmail app-specific password
-2. Update `api/.env`:
-   ```
-   SMTP_USER=your-email@gmail.com
-   SMTP_PASS=your-app-password
-   ```
-
-## Deployment Options
-
-### Single Server (Docker Compose)
-- Self-hosted VPS (DigitalOcean, Linode, etc.)
-- Install Docker, Docker Compose, Nginx
-- Run `docker-compose up -d`
-
-### Kubernetes (Future)
-- Manifests ready in `/k8s` directory
-- Deploy with `kubectl apply -f k8s/`
+Key variables:
+- `DATABASE_URL` — PostgreSQL connection string
+- `JWT_SECRET` — **change in production** (`openssl rand -base64 32`)
+- `NEXT_PUBLIC_API_URL` — baked at build time into the client bundle
+- `CONTENTFUL_SPACE_ID` / `CONTENTFUL_ACCESS_TOKEN` — enable CMS
 
 ## Troubleshooting
 
-**Frontend can't connect to API:**
-- Ensure `NEXT_PUBLIC_API_URL` is set correctly
-- Check API is running on port 5000
-- Verify CORS is enabled in Express
-
-**Docker build fails:**
-- Clear build cache: `docker-compose build --no-cache`
-- Ensure Node.js version is compatible
-
-**Port already in use:**
-- Change port in docker-compose.yml or `.env`
+| Problem | Fix |
+|---------|-----|
+| Frontend can't reach API | Check `NEXT_PUBLIC_API_URL` and CORS `FRONTEND_URL` |
+| Auth endpoints return 503 | `DATABASE_URL` not set — PostgreSQL is required for auth |
+| Docker build fails | `docker-compose build --no-cache` |
+| Port conflict | Change ports in `.env` or `docker-compose.yml` |
 
 ## Contributing
 
-Follow these conventions:
-- Use TypeScript for all new code
-- Components use PascalCase
-- Utilities/functions use camelCase
-- Commit messages are descriptive
+- TypeScript for all code
+- Components: PascalCase · Utilities: camelCase
+- Descriptive commit messages
 
 ## License
 
 MIT
-
-## Support
-
-For issues or questions, create an issue in the repository or contact the team.

@@ -1,180 +1,141 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
+import { FadeIn, StaggerContainer, StaggerItem } from '@/components/motion/Animations';
+import { AbstractWaveGraphic, GeoShape, IncidentTimelineGraphic } from '@/components/graphics/AbstractGraphics';
 
-const processes = [
+const steps = [
   {
-    num: '01',
-    title: 'Discovery',
-    description: 'Understand your infrastructure, goals, and challenges',
-    icon: '🔍',
-  },
-  {
-    num: '02',
-    title: 'Design',
-    description: 'architect scalable solutions for your needs',
-    icon: '🎨',
-  },
-  {
-    num: '03',
-    title: 'Implementation',
-    description: 'Deploy and configure with minimal disruption',
-    icon: '⚙️',
+    number: '01',
+    title: 'Discovery & Assessment',
+    description: 'We audit your current infrastructure, identify bottlenecks, and map out a transformation roadmap.',
+    border: 'border-primary-500',
+    bg: 'bg-primary-50',
+    accent: 'text-primary-600',
+    iconBg: 'bg-primary-100',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+      </svg>
+    ),
   },
   {
-    num: '04',
-    title: 'Optimize',
-    description: 'Fine-tune performance and cost efficiency',
-    icon: '📈',
+    number: '02',
+    title: 'Architecture & Design',
+    description: 'Build cloud-native architectures with resilience, security and scalability baked in from day one.',
+    border: 'border-emerald-500',
+    bg: 'bg-emerald-50',
+    accent: 'text-emerald-600',
+    iconBg: 'bg-emerald-100',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z" />
+      </svg>
+    ),
   },
-]
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
+  {
+    number: '03',
+    title: 'Implementation & Automation',
+    description: 'Hands-on buildout with IaC, CI/CD pipelines, monitoring stacks and security guardrails.',
+    border: 'border-amber-500',
+    bg: 'bg-amber-50',
+    accent: 'text-amber-600',
+    iconBg: 'bg-amber-100',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17l-5.1-5.1m0 0L11.42 5.07m-5.1 5.1h11.31M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
   },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6 },
+  {
+    number: '04',
+    title: 'Operate & Optimise',
+    description: 'Ongoing managed services, incident response, cost optimisation and continuous improvement.',
+    border: 'border-rose-500',
+    bg: 'bg-rose-50',
+    accent: 'text-rose-600',
+    iconBg: 'bg-rose-100',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182M21.015 4.356v4.992" />
+      </svg>
+    ),
   },
-}
+];
 
-export function ProcessTimeline() {
+export default function ProcessTimeline() {
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 relative">
-      {/* Background elements */}
-      <motion.div
-        className="absolute left-0 top-1/2 w-96 h-96 bg-accent4/10 rounded-full blur-3xl"
-        animate={{ y: [0, -50, 0] }}
-        transition={{ duration: 15, repeat: Infinity }}
-      />
+    <section id="process" className="py-24 section-gray relative overflow-hidden">
+      {/* Decorative wave */}
+      <div className="absolute top-0 left-0 right-0 text-primary-500 opacity-[0.04]">
+        <AbstractWaveGraphic className="w-full h-40" />
+      </div>
 
-      <div className="max-w-6xl mx-auto relative">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <motion.div className="inline-block mb-4 px-4 py-2 glass rounded-full border border-accent2/40">
-            <span className="text-xs uppercase tracking-widest text-accent2 font-semibold">Our Process</span>
-          </motion.div>
-          <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
-            Your Path to DevOps
-            <br />
-            <span className="gradient-text">Excellence</span>
-          </h2>
-        </motion.div>
+      {/* Decorative shapes */}
+      <div className="absolute top-20 right-10 text-primary-300/10">
+        <GeoShape shape="cross" size={64} />
+      </div>
+      <div className="absolute bottom-16 left-16 text-emerald-300/10">
+        <GeoShape shape="diamond" size={48} />
+      </div>
+      {/* Incident timeline decoration */}
+      <div className="absolute bottom-4 right-0 text-primary-500 opacity-[0.05] hidden lg:block">
+        <IncidentTimelineGraphic className="w-[320px] h-[120px]" />
+      </div>
 
-        {/* Timeline */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-2"
-          initial="hidden"
-          whileInView="visible"
-          variants={containerVariants}
-          viewport={{ once: true }}
-        >
-          {processes.map((process, index) => (
-            <motion.div key={process.num} variants={itemVariants} className="relative">
-              {/* Card */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <FadeIn direction="up">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 text-primary-600 text-sm font-semibold mb-4">
+              Our Process
+            </div>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
+              A Proven Path to <span className="gradient-text">Reliability</span>
+            </h2>
+            <p className="text-slate-500 text-lg leading-relaxed">
+              Four focused phases that take you from assessment to fully
+              managed, production-grade infrastructure.
+            </p>
+          </div>
+        </FadeIn>
+
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {steps.map((step, index) => (
+            <StaggerItem key={step.number}>
               <motion.div
-                whileHover={{ y: -8 }}
-                className={`relative p-8 rounded-2xl glass border border-accent2/20 h-full transition-all duration-300 group ${
-                  index === processes.length - 1 ? '' : 'lg:pr-12'
-                }`}
+                className={`relative bg-white rounded-2xl p-6 border-t-4 ${step.border} shadow-card hover:shadow-card-hover transition-shadow duration-300 h-full`}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
               >
-                {/* Step number badge */}
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: index * 0.15, duration: 0.4 }}
-                  className={`absolute -top-6 -left-6 w-16 h-16 rounded-full flex items-center justify-center font-black text-lg text-primary
-                    ${index === 0 ? 'bg-accent' : index === 1 ? 'bg-accent3' : index === 2 ? 'bg-accent5' : 'bg-accent2'}
-                  `}
-                >
-                  {process.num}
-                </motion.div>
+                {/* Step number */}
+                <div className={`${step.bg} ${step.accent} w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold mb-4`}>
+                  {step.number}
+                </div>
 
                 {/* Icon */}
-                <div className="text-4xl mb-6 mt-4">{process.icon}</div>
+                <div className={`${step.iconBg} ${step.accent} w-10 h-10 rounded-full flex items-center justify-center mb-4`}>
+                  {step.icon}
+                </div>
 
-                {/* Title */}
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-accent2 transition">
-                  {process.title}
+                <h3 className="text-lg font-bold text-slate-900 mb-2">
+                  {step.title}
                 </h3>
-
-                {/* Description */}
-                <p className="text-slate-400 text-sm leading-relaxed">
-                  {process.description}
+                <p className="text-sm text-slate-500 leading-relaxed">
+                  {step.description}
                 </p>
 
-                {/* Hover effect */}
-                <motion.div
-                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-                  style={{
-                    border: '2px solid transparent',
-                    backgroundImage: 'linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, transparent 100%)',
-                    backgroundOrigin: 'border-box',
-                    backgroundClip: 'padding-box, border-box',
-                  }}
-                />
+                {/* Connector line (hidden on last item) */}
+                {index < steps.length - 1 && (
+                  <div className="hidden lg:block absolute top-10 -right-3 w-6">
+                    <svg className="w-6 h-6 text-slate-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                  </div>
+                )}
               </motion.div>
-
-              {/* Connector line (hidden on mobile) */}
-              {index < processes.length - 1 && (
-                <motion.svg
-                  className={`hidden lg:block absolute top-1/2 ${index % 2 === 0 ? 'right-0 transform translate-x-6' : 'left-0 transform -translate-x-6'}`}
-                  width="60"
-                  height="4"
-                  viewBox="0 0 60 4"
-                  style={{ marginTop: '-2px' }}
-                >
-                  <motion.line
-                    x1="0"
-                    y1="2"
-                    x2="60"
-                    y2="2"
-                    stroke="rgb(6, 182, 212)"
-                    strokeWidth="2"
-                    initial={{ pathLength: 0 }}
-                    whileInView={{ pathLength: 1 }}
-                    transition={{ delay: index * 0.2, duration: 1 }}
-                    viewport={{ once: true }}
-                  />
-                </motion.svg>
-              )}
-            </motion.div>
+            </StaggerItem>
           ))}
-        </motion.div>
-
-        {/* CTA at bottom */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-gradient-to-r from-accent to-accent2 text-white font-bold rounded-lg shadow-glow-cyan transition-all duration-300"
-          >
-            Start Your Journey
-          </motion.button>
-        </motion.div>
+        </StaggerContainer>
       </div>
     </section>
-  )
+  );
 }

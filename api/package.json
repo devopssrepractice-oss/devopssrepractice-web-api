@@ -9,21 +9,31 @@
     "start": "node dist/index.js",
     "lint": "eslint src --ext .ts"
   },
-  "keywords": ["devops", "sre", "api"],
+  "keywords": [
+    "devops",
+    "sre",
+    "api"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.3",
     "nodemailer": "^6.9.7",
+    "pg": "^8.18.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20.10.6",
     "@types/nodemailer": "^6.4.14",
+    "@types/pg": "^8.16.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }
