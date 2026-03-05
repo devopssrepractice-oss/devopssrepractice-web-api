@@ -18,14 +18,14 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #7c3aed, #8b5cf6, #a78bfa);
+  background: linear-gradient(135deg, #16a34a, #22c55e, #4ade80);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .hero-gradient {
-  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 30%, #e0e7ff 60%, #f0fdf4 100%);
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 30%, #bbf7d0 60%, #86efac 100%);
 }
 
 .card-feature {
@@ -51,14 +51,9 @@ body {
   justify-content: center;
 }
 
-.icon-purple {
-  background: #f5f3ff;
-  color: #7c3aed;
-}
-
 .icon-green {
-  background: #ecfdf5;
-  color: #10b981;
+  background: #dcfce7;
+  color: #16a34a;
 }
 
 .icon-coral {
@@ -86,7 +81,7 @@ body {
 }
 
 ::selection {
-  background-color: rgba(124, 58, 237, 0.15);
+  background-color: rgba(22, 163, 74, 0.15);
   color: #1e293b;
 }
 
