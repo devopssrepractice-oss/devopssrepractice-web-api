@@ -25,7 +25,7 @@ export default function Header() {
               </svg>
             </div>
             <span className="text-xl font-bold text-slate-900">
-              DevOps<span className="text-primary-600">SRE</span>
+              DevOps<span className="text-primary-600">SRE</span><span className="text-primary-600">Practice</span>
             </span>
           </Link>
 
