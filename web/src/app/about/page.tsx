@@ -19,6 +19,7 @@ const values = [
       </svg>
     ),
     color: 'icon-green',
+    cardClass: 'card-modern-emerald',
   },
   {
     title: 'Automate Everything',
@@ -29,6 +30,7 @@ const values = [
       </svg>
     ),
     color: 'icon-amber',
+    cardClass: 'card-modern-amber',
   },
   {
     title: 'Measure & Improve',
@@ -39,6 +41,7 @@ const values = [
       </svg>
     ),
     color: 'icon-green',
+    cardClass: 'card-modern-emerald',
   },
   {
     title: 'Open Source First',
@@ -49,14 +52,15 @@ const values = [
       </svg>
     ),
     color: 'icon-cyan',
+    cardClass: 'card-modern-emerald',
   },
 ];
 
 const team = [
-  { name: 'Alex Chen', role: 'Principal SRE', specialty: 'Kubernetes & Cloud Architecture' },
-  { name: 'Sarah Mitchell', role: 'DevOps Lead', specialty: 'CI/CD & GitOps' },
-  { name: 'Raj Patel', role: 'Platform Engineer', specialty: 'Terraform & IaC' },
-  { name: 'Emily Davis', role: 'Security Engineer', specialty: 'DevSecOps & Compliance' },
+  { name: 'Sandesh R', role: 'Principal SRE', specialty: 'Kubernetes & Cloud Architecture' },
+  { name: 'R', role: 'DevOps Lead', specialty: 'CI/CD & GitOps' },
+  { name: 'E', role: 'Platform Engineer', specialty: 'Terraform & IaC' },
+  { name: 'S', role: 'Security Engineer', specialty: 'DevSecOps & Compliance' },
 ];
 
 const teamColors = ['bg-primary-100 text-primary-600', 'bg-emerald-100 text-emerald-600', 'bg-amber-100 text-amber-600', 'bg-pink-100 text-pink-600'];
@@ -141,14 +145,14 @@ export default function AboutPage() {
               {values.map((value) => (
                 <StaggerItem key={value.title}>
                   <motion.div
-                    className="card-feature group"
+                    className={`${value.cardClass} group h-full`}
                     whileHover={{ y: -4, transition: { duration: 0.2 } }}
                   >
                     <div className={`icon-circle ${value.color} mb-5`}>
                       {value.icon}
                     </div>
                     <h3 className="text-lg font-bold text-slate-900 mb-2">{value.title}</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">{value.description}</p>
+                    <p className="text-slate-600 text-sm leading-relaxed">{value.description}</p>
                   </motion.div>
                 </StaggerItem>
               ))}

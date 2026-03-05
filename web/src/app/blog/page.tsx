@@ -35,7 +35,7 @@ const fallbackPosts: BlogPost[] = [
     id: '1', slug: 'kubernetes-production-best-practices',
     title: 'Kubernetes in Production: 10 Best Practices You Need to Know',
     excerpt: 'Running Kubernetes in production requires careful planning. Here are the battle-tested practices we use for every production cluster.',
-    publishedDate: '2024-12-15', readTime: '8 min read', tag: 'Kubernetes', tagColor: 'bg-blue-100 text-blue-700',
+    publishedDate: '2024-12-15', readTime: '8 min read', tag: 'Kubernetes', tagColor: 'bg-primary-100 text-primary-700',
     coverImage: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=600&h=400&fit=crop',
   },
   {

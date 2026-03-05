@@ -586,3 +586,225 @@ export function OrbitGraphic({ className = '' }: { className?: string }) {
     </svg>
   );
 }
+
+export function DevOpsWorkflowGraphic({ className = '' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 600 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Stage 1: Code */}
+      <motion.rect
+        x="20" y="60" width="80" height="60"
+        rx="8"
+        fill="currentColor"
+        fillOpacity="0.12"
+        stroke="currentColor"
+        strokeWidth="2"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+      />
+      <motion.text
+        x="60" y="95" fill="currentColor"
+        textAnchor="middle" fontSize="14" fontWeight="600"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.3 }}
+      >
+        Code
+      </motion.text>
+
+      {/* Arrow 1 */}
+      <motion.path
+        d="M 105 90 L 115 90"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 0.6 }}
+        transition={{ delay: 0.5, duration: 0.6 }}
+      />
+      <motion.path
+        d="M 120 85 L 115 90 L 120 95"
+        stroke="currentColor"
+        strokeWidth="2"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.6 }}
+        transition={{ delay: 0.8, duration: 0.3 }}
+      />
+
+      {/* Stage 2: Build */}
+      <motion.rect
+        x="130" y="60" width="80" height="60"
+        rx="8"
+        fill="currentColor"
+        fillOpacity="0.12"
+        stroke="currentColor"
+        strokeWidth="2"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
+      />
+      <motion.text
+        x="170" y="95" fill="currentColor"
+        textAnchor="middle" fontSize="14" fontWeight="600"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.3 }}
+      >
+        Build
+      </motion.text>
+
+      {/* Arrow 2 */}
+      <motion.path
+        d="M 215 90 L 225 90"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 0.6 }}
+        transition={{ delay: 0.7, duration: 0.6 }}
+      />
+      <motion.path
+        d="M 230 85 L 225 90 L 230 95"
+        stroke="currentColor"
+        strokeWidth="2"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.6 }}
+        transition={{ delay: 1, duration: 0.3 }}
+      />
+
+      {/* Stage 3: Test */}
+      <motion.rect
+        x="240" y="60" width="80" height="60"
+        rx="8"
+        fill="currentColor"
+        fillOpacity="0.12"
+        stroke="currentColor"
+        strokeWidth="2"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
+      />
+      <motion.text
+        x="280" y="95" fill="currentColor"
+        textAnchor="middle" fontSize="14" fontWeight="600"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.7, duration: 0.3 }}
+      >
+        Test
+      </motion.text>
+
+      {/* Arrow 3 */}
+      <motion.path
+        d="M 325 90 L 335 90"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 0.6 }}
+        transition={{ delay: 0.9, duration: 0.6 }}
+      />
+      <motion.path
+        d="M 340 85 L 335 90 L 340 95"
+        stroke="currentColor"
+        strokeWidth="2"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.6 }}
+        transition={{ delay: 1.2, duration: 0.3 }}
+      />
+
+      {/* Stage 4: Deploy */}
+      <motion.rect
+        x="350" y="60" width="80" height="60"
+        rx="8"
+        fill="currentColor"
+        fillOpacity="0.12"
+        stroke="currentColor"
+        strokeWidth="2"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.7, duration: 0.5 }}
+      />
+      <motion.text
+        x="390" y="95" fill="currentColor"
+        textAnchor="middle" fontSize="14" fontWeight="600"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.9, duration: 0.3 }}
+      >
+        Deploy
+      </motion.text>
+
+      {/* Arrow 4 */}
+      <motion.path
+        d="M 435 90 L 445 90"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 0.6 }}
+        transition={{ delay: 1.1, duration: 0.6 }}
+      />
+      <motion.path
+        d="M 450 85 L 445 90 L 450 95"
+        stroke="currentColor"
+        strokeWidth="2"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.6 }}
+        transition={{ delay: 1.4, duration: 0.3 }}
+      />
+
+      {/* Stage 5: Monitor */}
+      <motion.rect
+        x="460" y="60" width="80" height="60"
+        rx="8"
+        fill="currentColor"
+        fillOpacity="0.12"
+        stroke="currentColor"
+        strokeWidth="2"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.9, duration: 0.5 }}
+      />
+      <motion.text
+        x="500" y="95" fill="currentColor"
+        textAnchor="middle" fontSize="14" fontWeight="600"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.1, duration: 0.3 }}
+      >
+        Monitor
+      </motion.text>
+
+      {/* Pulsing status indicator for Deploy (active stage) */}
+      <motion.circle
+        cx="390" cy="140" r="4"
+        fill="currentColor"
+        fillOpacity="0.6"
+        animate={{ scale: [1, 1.5, 1] }}
+        transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+      />
+      <motion.text
+        x="410" y="145" fill="currentColor"
+        fontSize="11" fillOpacity="0.7"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.3 }}
+      >
+        Active
+      </motion.text>
+    </svg>
+  );
+}

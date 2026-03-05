@@ -9,7 +9,7 @@ import CodeBlock from '@/components/common/CodeBlock';
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 const TAG_OPTIONS = [
-  { label: 'Kubernetes', color: 'bg-blue-100 text-blue-700' },
+  { label: 'Kubernetes', color: 'bg-primary-100 text-primary-700' },
   { label: 'GitOps', color: 'bg-purple-100 text-purple-700' },
   { label: 'IaC', color: 'bg-emerald-100 text-emerald-700' },
   { label: 'SRE', color: 'bg-amber-100 text-amber-700' },
@@ -72,7 +72,7 @@ const emptyForm: PostForm = {
   excerpt: '',
   content: [{ type: 'paragraph', content: '' }],
   tag: 'Kubernetes',
-  tagColor: 'bg-blue-100 text-blue-700',
+  tagColor: 'bg-primary-100 text-primary-700',
   readTime: '5 min read',
   coverImage: '',
   published: false,

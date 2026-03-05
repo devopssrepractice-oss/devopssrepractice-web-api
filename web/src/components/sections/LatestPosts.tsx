@@ -26,7 +26,7 @@ const fallbackPosts: BlogPost[] = [
     title: 'Kubernetes in Production: 10 Best Practices',
     excerpt: 'Battle-tested practices for running Kubernetes in production environments at scale.',
     publishedDate: '2024-12-15', readTime: '8 min read',
-    tag: 'Kubernetes', tagColor: 'bg-blue-100 text-blue-700',
+    tag: 'Kubernetes', tagColor: 'bg-primary-100 text-primary-700',
     coverImage: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=600&q=80',
   },
   {

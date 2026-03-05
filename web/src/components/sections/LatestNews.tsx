@@ -18,7 +18,7 @@ interface NewsItem {
 }
 
 const categoryColors: Record<string, string> = {
-  'Product Update': 'bg-blue-100 text-blue-700',
+  'Product Update': 'bg-primary-100 text-primary-700',
   Partnership: 'bg-emerald-100 text-emerald-700',
   'Industry Recognition': 'bg-amber-100 text-amber-700',
   'Case Study': 'bg-purple-100 text-purple-700',

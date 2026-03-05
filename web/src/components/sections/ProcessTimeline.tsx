@@ -100,32 +100,39 @@ export default function ProcessTimeline() {
         </FadeIn>
 
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {steps.map((step, index) => (
+          {steps.map((step, index) => {
+            let cardClass = 'card-modern-emerald';
+            if (index === 0) cardClass = 'card-modern-emerald';
+            if (index === 1) cardClass = 'card-modern-emerald';
+            if (index === 2) cardClass = 'card-modern-amber';
+            if (index === 3) cardClass = 'card-modern-pink';
+
+            return (
             <StaggerItem key={step.number}>
               <motion.div
-                className={`relative bg-white rounded-2xl p-6 border-t-4 ${step.border} shadow-card hover:shadow-card-hover transition-shadow duration-300 h-full`}
+                className={`relative bg-white h-full ${cardClass} overflow-hidden`}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
               >
-                {/* Step number */}
-                <div className={`${step.bg} ${step.accent} w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold mb-4`}>
+                {/* Step number badge */}
+                <div className={`${step.bg} ${step.accent} inline-flex w-12 h-12 rounded-lg flex items-center justify-center text-base font-bold mb-6 mb-5`}>
                   {step.number}
                 </div>
 
                 {/* Icon */}
-                <div className={`${step.iconBg} ${step.accent} w-10 h-10 rounded-full flex items-center justify-center mb-4`}>
+                <div className={`${step.iconBg} ${step.accent} w-12 h-12 rounded-lg flex items-center justify-center mb-5 inline-flex`}>
                   {step.icon}
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 mb-2">
+                <h3 className="text-lg font-bold text-slate-900 mb-3">
                   {step.title}
                 </h3>
-                <p className="text-sm text-slate-500 leading-relaxed">
+                <p className="text-sm text-slate-600 leading-relaxed">
                   {step.description}
                 </p>
 
                 {/* Connector line (hidden on last item) */}
                 {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-10 -right-3 w-6">
+                  <div className="hidden lg:block absolute top-6 -right-3 w-6">
                     <svg className="w-6 h-6 text-slate-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                     </svg>
@@ -133,7 +140,8 @@ export default function ProcessTimeline() {
                 )}
               </motion.div>
             </StaggerItem>
-          ))}
+            );
+          })}
         </StaggerContainer>
       </div>
     </section>

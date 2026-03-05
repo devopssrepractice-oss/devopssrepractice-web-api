@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FadeIn, Floating } from '@/components/motion/Animations';
-import { AbstractGridGraphic, GeoShape, PipelineGraphic, OrbitGraphic } from '@/components/graphics/AbstractGraphics';
+import { AbstractGridGraphic, GeoShape, PipelineGraphic, OrbitGraphic, DevOpsWorkflowGraphic } from '@/components/graphics/AbstractGraphics';
 
 export default function HeroSection() {
   return (
@@ -96,94 +96,62 @@ export default function HeroSection() {
             </FadeIn>
           </div>
 
-          {/* Right: Dashboard mockup with animation */}
+          {/* Right: Professional DevOps Workflow Infographic */}
           <FadeIn direction="left" delay={0.3}>
-            <div className="relative hidden lg:block">
+            <div className="relative hidden lg:flex items-center justify-center">
               <motion.div
-                className="relative bg-white rounded-3xl shadow-card p-6 border border-slate-100"
-                whileHover={{ y: -4, boxShadow: '0 8px 30px rgba(0,0,0,0.1)' }}
+                className="relative bg-gradient-to-br from-emerald-50 to-emerald-100/50 rounded-3xl p-12 border-2 border-emerald-200 shadow-xl max-w-lg"
+                whileHover={{ y: -4, boxShadow: '0 12px 40px rgba(22, 163, 74, 0.15)' }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Browser chrome */}
-                <div className="flex items-center gap-2 mb-5">
-                  <div className="w-3 h-3 rounded-full bg-red-300" />
-                  <div className="w-3 h-3 rounded-full bg-amber-300" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-300" />
-                  <div className="ml-3 flex-1 h-7 rounded-lg bg-slate-50 flex items-center px-3">
-                    <span className="text-[10px] text-slate-400 font-mono">dashboard.devopssre.io</span>
-                  </div>
+                <motion.div
+                  className="text-emerald-700 mb-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4, duration: 0.5 }}
+                >
+                  <h3 className="text-lg font-bold mb-2">DevOps Pipeline</h3>
+                  <p className="text-sm opacity-75">Automated workflow from code to production</p>
+                </motion.div>
+
+                <div className="bg-white/60 rounded-xl p-6 border border-emerald-100/50">
+                  <DevOpsWorkflowGraphic className="w-full h-40 text-emerald-600" />
                 </div>
 
-                {/* Metrics cards */}
-                <div className="grid grid-cols-3 gap-3 mb-4">
+                {/* Stats below workflow */}
+                <motion.div
+                  className="mt-8 grid grid-cols-3 gap-3"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.5, duration: 0.5 }}
+                >
                   {[
-                    { label: 'Deployments', value: '847', change: '+12.5%', bg: 'bg-primary-50', text: 'text-primary-600' },
-                    { label: 'Uptime', value: '99.99%', change: 'SLA met', bg: 'bg-emerald-50', text: 'text-emerald-600' },
-                    { label: 'MTTR', value: '<5m', change: '-40%', bg: 'bg-amber-50', text: 'text-amber-600' },
-                  ].map((metric, i) => (
-                    <motion.div
-                      key={metric.label}
-                      className={`${metric.bg} rounded-xl p-3.5`}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8 + i * 0.15, duration: 0.5 }}
+                    { label: 'Deployment', value: '< 5 min', icon: '⚡' },
+                    { label: 'Success Rate', value: '99.9%', icon: '✓' },
+                    { label: 'Daily Builds', value: '200+', icon: '📦' },
+                  ].map((stat, i) => (
+                    <div
+                      key={stat.label}
+                      className="bg-white/70 rounded-lg p-3 text-center border border-emerald-100 hover:border-emerald-300 transition-all"
                     >
-                      <div className={`text-[10px] ${metric.text} font-semibold mb-1`}>{metric.label}</div>
-                      <div className="text-xl font-bold text-slate-900">{metric.value}</div>
-                      <div className="text-[10px] text-emerald-600 mt-0.5">{metric.change}</div>
-                    </motion.div>
+                      <div className="text-2xl mb-1">{stat.icon}</div>
+                      <div className="text-xs text-emerald-600 font-semibold">{stat.label}</div>
+                      <div className="text-sm font-bold text-emerald-900">{stat.value}</div>
+                    </div>
                   ))}
-                </div>
-
-                {/* Chart */}
-                <div className="bg-slate-50 rounded-xl p-4 h-28 flex items-end gap-1.5">
-                  {[40, 65, 45, 80, 55, 90, 70, 95, 60, 85, 75, 92].map((h, i) => (
-                    <motion.div
-                      key={i}
-                      className="flex-1 rounded-t bg-gradient-to-t from-primary-500 to-primary-300"
-                      initial={{ height: 0 }}
-                      animate={{ height: `${h}%` }}
-                      transition={{ delay: 1.2 + i * 0.06, duration: 0.6, ease: 'easeOut' }}
-                    />
-                  ))}
-                </div>
-
-                {/* Pipeline status */}
-                <div className="mt-3 space-y-1.5">
-                  {[
-                    { name: 'prod-deploy', status: 'success', time: '2m 14s' },
-                    { name: 'staging-test', status: 'success', time: '4m 32s' },
-                    { name: 'security-scan', status: 'running', time: '1m 08s' },
-                  ].map((pipe, i) => (
-                    <motion.div
-                      key={pipe.name}
-                      className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 1.8 + i * 0.1, duration: 0.4 }}
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className={`w-2 h-2 rounded-full ${
-                          pipe.status === 'success' ? 'bg-emerald-500' : 'bg-amber-400 animate-pulse'
-                        }`} />
-                        <span className="text-[11px] font-mono text-slate-600">{pipe.name}</span>
-                      </div>
-                      <span className="text-[10px] text-slate-400">{pipe.time}</span>
-                    </motion.div>
-                  ))}
-                </div>
+                </motion.div>
               </motion.div>
 
               {/* Floating decorative elements */}
               <Floating duration={5} distance={8} className="absolute -top-6 -right-6">
-                <div className="w-14 h-14 bg-primary-100 rounded-2xl rotate-12 shadow-sm" />
+                <div className="w-14 h-14 bg-emerald-100 rounded-2xl rotate-12 shadow-sm" />
               </Floating>
               <Floating duration={6} delay={1.5} distance={10} className="absolute -bottom-4 -left-4">
-                <div className="w-10 h-10 bg-emerald-100 rounded-full shadow-sm" />
+                <div className="w-10 h-10 bg-emerald-200 rounded-full shadow-sm" />
               </Floating>
 
               {/* Orbit decoration */}
-              <div className="absolute -right-16 -bottom-16 text-primary-400">
+              <div className="absolute -right-16 -bottom-16 text-emerald-400">
                 <OrbitGraphic className="w-36 h-36 opacity-30" />
               </div>
             </div>

@@ -42,6 +42,223 @@ body {
   border-color: #e2e8f0;
 }
 
+/* Modern card design with falling curve background */
+.card-modern {
+  background: #ffffff;
+  border: none;
+  border-radius: 1.5rem;
+  padding: 3rem 2rem 2.5rem 2rem;
+  box-shadow: 0 2px 12px rgba(22, 163, 74, 0.1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #16a34a;
+  clip-path: polygon(0 0, 100% 0, 100% 30%, 50% 50%, 0 30%);
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.card-modern:hover {
+  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.2);
+  transform: translateY(-6px);
+}
+
+/* Variant: Emerald (primary) - Falling Curve Background */
+.card-modern-emerald {
+  background: #ffffff;
+  border: none;
+  border-radius: 1.5rem;
+  padding: 3rem 2rem 2.5rem 2rem;
+  box-shadow: 0 2px 12px rgba(22, 163, 74, 0.1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-modern-emerald::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #16a34a;
+  clip-path: polygon(0 0, 100% 0, 100% 30%, 50% 50%, 0 30%);
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.card-modern-emerald:hover {
+  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.2);
+  transform: translateY(-6px);
+}
+
+/* Variant: Amber/Orange - Falling Curve Background */
+.card-modern-amber {
+  background: #ffffff;
+  border: none;
+  border-radius: 1.5rem;
+  padding: 3rem 2rem 2.5rem 2rem;
+  box-shadow: 0 2px 12px rgba(245, 158, 11, 0.1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-modern-amber::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #f59e0b;
+  clip-path: polygon(0 0, 100% 0, 100% 30%, 50% 50%, 0 30%);
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.card-modern-amber:hover {
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.2);
+  transform: translateY(-6px);
+}
+
+/* Variant: Pink/Rose - Falling Curve Background */
+.card-modern-pink {
+  background: #ffffff;
+  border: none;
+  border-radius: 1.5rem;
+  padding: 3rem 2rem 2.5rem 2rem;
+  box-shadow: 0 2px 12px rgba(236, 72, 153, 0.1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-modern-pink::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #ec4899;
+  clip-path: polygon(0 0, 100% 0, 100% 30%, 50% 50%, 0 30%);
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.card-modern-pink:hover {
+  box-shadow: 0 8px 24px rgba(236, 72, 153, 0.2);
+  transform: translateY(-6px);
+}
+
+/* Variant: Coral - Falling Curve Background */
+.card-modern-coral {
+  background: #ffffff;
+  border: none;
+  border-radius: 1.5rem;
+  padding: 3rem 2rem 2.5rem 2rem;
+  box-shadow: 0 2px 12px rgba(249, 115, 22, 0.1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-modern-coral::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #f97316;
+  clip-path: polygon(0 0, 100% 0, 100% 30%, 50% 50%, 0 30%);
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.card-modern-coral:hover {
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.2);
+  transform: translateY(-6px);
+}
+
+/* Card with number indicator - Falling Curve Background */
+.card-numbered {
+  background: #ffffff;
+  border-radius: 1.5rem;
+  padding: 3rem 2rem 2.5rem 2rem;
+  box-shadow: 0 2px 12px rgba(22, 163, 74, 0.1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-numbered::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #16a34a;
+  clip-path: polygon(0 0, 100% 0, 100% 30%, 50% 50%, 0 30%);
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.card-numbered:hover {
+  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.2);
+  transform: translateY(-6px);
+}
+
+/* Step indicator card - Curved Arch Top Border */
+.card-step {
+  background: #ffffff;
+  border-radius: 1.5rem;
+  padding: 3rem 2rem 2.5rem 5rem;
+  box-shadow: 0 2px 12px rgba(22, 163, 74, 0.1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+.card-step::before {
+  content: attr(data-step);
+  position: absolute;
+  left: 1.5rem;
+  top: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #dcfce7;
+  color: #16a34a;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  z-index: 10;
+}
+
+.card-step::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: #16a34a;
+  border-radius: 50% 50% 0 0;
+}
+
+.card-step:hover {
+  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.2);
+  transform: translateY(-6px);
+}
+
 .icon-circle {
   width: 56px;
   height: 56px;
